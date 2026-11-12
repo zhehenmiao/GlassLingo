@@ -9,6 +9,7 @@
 **/publish-*/
 **/release/
 /artifacts/
+/restored-history/
 .vs/
 .idea/
 *.user

@@ -28,7 +28,7 @@ dotnet publish ./glasslingo/src/GlassLingo/GlassLingo.csproj -c Release -r win-x
 
 运行 `artifacts/GlassLingo-0.17.0/GlassLingo.exe`。请保留整个输出目录，包括相邻 DLL、Paddle 原生依赖及 `inference` 模型目录；单独复制 EXE 不能运行全部功能。自包含发布无需另外安装 .NET 运行时。
 
-本仓库存放源码和文档，不提交历次发布目录、运行日志、个人配置或密钥；本次不提供程序压缩包。
+本仓库存放源码和文档，不将程序依赖、运行日志、个人配置或密钥提交到 Git 历史。旧版程序另存于 [历史版本归档](HISTORY.md)，按需恢复；当前 0.17.0 仍不提供程序压缩包。
 
 ## 使用与数据
 
