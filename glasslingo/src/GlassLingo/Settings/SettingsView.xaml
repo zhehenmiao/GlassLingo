@@ -1,0 +1,78 @@
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:input="clr-namespace:GlassLingo.Hotkey" x:Class="GlassLingo.Settings.SettingsView" Focusable="True">
+
+
+  <Grid Margin="0"><Grid.RowDefinitions><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+    <TabControl Grid.Row="0" TabStripPlacement="Left">
+      <TabItem Header="{DynamicResource ui013}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="2,0,14,16">
+        <TextBlock Text="{DynamicResource ui013}" FontSize="21" FontWeight="SemiBold" /><TextBlock Text="{DynamicResource ui014}" Style="{StaticResource Hint}" />
+        <TextBlock Text="{DynamicResource ui015}" Style="{StaticResource Label}" /><TextBox x:Name="BaseUrlBox" /><TextBlock Text="{DynamicResource ui016}" Style="{StaticResource Hint}" />
+        <TextBlock Text="{DynamicResource ui017}" Style="{StaticResource Label}" /><TextBox x:Name="ModelBox" />
+        <TextBlock x:Name="KeyLabel" Text="API Key" Style="{StaticResource Label}" /><PasswordBox x:Name="KeyBox" /><TextBlock x:Name="KeyHint" Style="{StaticResource Hint}" />
+        <Grid Margin="0,4,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="20" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource ui018}" Style="{StaticResource Label}" /><TextBox x:Name="TimeoutBox" /></StackPanel><StackPanel Grid.Column="2"><TextBlock Text="{DynamicResource ui019}" Style="{StaticResource Label}" /><TextBox x:Name="TempBox" /></StackPanel></Grid>
+        <Button x:Name="TestButton" Content="{DynamicResource ui020}" Click="Test_Click" HorizontalAlignment="Left" Margin="0,18,0,0" />
+        <TextBlock Text="{DynamicResource ui021}" Style="{StaticResource Label}" /><TextBox x:Name="PromptBox" Height="100" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
+        <CheckBox x:Name="ExplainTechnicalCheck" Content="{DynamicResource ui022}" Margin="0,16,0,6" /><TextBlock Text="{DynamicResource ui023}" Style="{StaticResource Hint}" />
+      </StackPanel></ScrollViewer></TabItem>
+      <TabItem Header="{DynamicResource ui024}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="2,0,14,16">
+        <TextBlock Text="{DynamicResource ui024}" FontSize="21" FontWeight="SemiBold" /><TextBlock Text="{DynamicResource ui025}" Style="{StaticResource Hint}" />
+        <TextBlock Text="{DynamicResource ui026}" Style="{StaticResource Label}" /><ComboBox x:Name="OcrProviderCombo" SelectedValuePath="Tag" SelectionChanged="OcrProvider_SelectionChanged"><ComboBoxItem Content="{DynamicResource ui027}" Tag="windows" /><ComboBoxItem Content="{DynamicResource ui028}" Tag="paddle" /><ComboBoxItem Content="{DynamicResource ui029}" Tag="openai-vision" /></ComboBox><TextBlock x:Name="OcrProviderHint" Style="{StaticResource Hint}" />
+        <StackPanel x:Name="VisionOcrPanel" Visibility="Collapsed"><TextBlock Text="{DynamicResource ui030}" Style="{StaticResource Label}" /><TextBox x:Name="VisionOcrUrlBox" /><TextBlock Text="{DynamicResource ui031}" Style="{StaticResource Label}" /><TextBox x:Name="VisionOcrModelBox" /><TextBlock x:Name="VisionOcrKeyLabel" Text="OCR API Key" Style="{StaticResource Label}" /><PasswordBox x:Name="VisionOcrKeyBox" /><TextBlock x:Name="VisionOcrKeyHint" Style="{StaticResource Hint}" /><TextBlock Text="{DynamicResource ui032}" Foreground="#E6BF81" TextWrapping="Wrap" Margin="0,12,0,0" /></StackPanel>
+        <TextBlock Text="{DynamicResource ui033}" Style="{StaticResource Label}" /><ComboBox x:Name="SourceCombo" DisplayMemberPath="Name" SelectedValuePath="Tag" /><TextBlock x:Name="SourceHint" Style="{StaticResource Hint}" />
+        <TextBlock Text="{DynamicResource ui034}" Style="{StaticResource Label}" /><ComboBox x:Name="TargetCombo" DisplayMemberPath="Name" SelectedValuePath="Tag" />
+        <CheckBox x:Name="FilterNonTextCheck" Content="{DynamicResource ui315}" Margin="0,22,0,6"/><TextBlock Text="{DynamicResource ui316}" Style="{StaticResource Hint}"/>
+        <CheckBox x:Name="AutoTranslateCheck" Content="{DynamicResource ui035}" Margin="0,22,0,6" />
+        <TextBox x:Name="RowHeightBox" Visibility="Collapsed" />
+      </StackPanel></ScrollViewer></TabItem>
+      <TabItem Header="{DynamicResource ui036}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="2,0,14,16">
+        <TextBlock Text="{DynamicResource ui037}" FontSize="21" FontWeight="SemiBold" /><TextBlock Text="{DynamicResource ui038}" Style="{StaticResource Hint}" />
+        <TextBlock Text="{DynamicResource ui323}" Style="{StaticResource Label}"/><ComboBox x:Name="PerformanceModeCombo" SelectedValuePath="Tag"><ComboBoxItem Content="{DynamicResource ui324}" Tag="game"/><ComboBoxItem Content="{DynamicResource ui325}" Tag="movie"/></ComboBox><TextBlock Text="{DynamicResource ui326}" Style="{StaticResource Hint}"/><TextBlock Text="{DynamicResource ui039}" Style="{StaticResource Label}" /><ComboBox x:Name="PollCombo" SelectedValuePath="Tag"><ComboBoxItem Content="{DynamicResource ui040}" Tag="1000" /><ComboBoxItem Content="{DynamicResource ui041}" Tag="500" /><ComboBoxItem Content="{DynamicResource ui042}" Tag="250" /></ComboBox><TextBlock Text="{DynamicResource ui043}" Style="{StaticResource Hint}" />
+        <TextBlock Text="{DynamicResource ui044}" Style="{StaticResource Label}" /><TextBox x:Name="OcrIntervalBox" /><TextBlock Text="{DynamicResource ui045}" Style="{StaticResource Hint}" />
+        <TextBlock Text="{DynamicResource ui046}" Style="{StaticResource Label}" /><ComboBox x:Name="ThreadsCombo" SelectedValuePath="Tag"><ComboBoxItem Content="{DynamicResource ui047}" Tag="1" /><ComboBoxItem Content="{DynamicResource ui048}" Tag="2" /><ComboBoxItem Content="{DynamicResource ui049}" Tag="4" /></ComboBox><TextBlock Text="{DynamicResource ui050}" Style="{StaticResource Hint}" />
+        <CheckBox x:Name="StreamingCheck" Content="{DynamicResource ui051}" Margin="0,24,0,6" /><TextBlock Text="{DynamicResource ui052}" Style="{StaticResource Hint}" />
+        <TextBlock Text="{DynamicResource ui053}" Style="{StaticResource Hint}" Margin="0,24,0,0" />
+      </StackPanel></ScrollViewer></TabItem>
+      <TabItem Header="{DynamicResource ui243}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="2,0,14,16">
+        <TextBlock Text="{DynamicResource ui241}" FontSize="21" FontWeight="SemiBold" /><ComboBox x:Name="UiLanguageCombo" SelectedValuePath="Tag" SelectionChanged="UiLanguage_Changed" Margin="0,12,0,0"><ComboBoxItem Content="简体中文" Tag="zh-CN" /><ComboBoxItem Content="繁體中文" Tag="zh-TW" /><ComboBoxItem Content="English" Tag="en-US" /><ComboBoxItem Content="日本語" Tag="ja-JP" /><ComboBoxItem Content="한국어" Tag="ko-KR" /></ComboBox><TextBlock Text="{DynamicResource ui242}" Style="{StaticResource Hint}" Margin="0,8,0,20" />
+        <TextBlock Text="{DynamicResource ui257}" FontSize="21" FontWeight="SemiBold" />
+        <TextBlock Text="{DynamicResource ui070}" Style="{StaticResource Hint}" />
+        <CheckBox x:Name="FollowSourceCheck" Content="{DynamicResource ui306}" Margin="0,14,0,0"/><TextBlock Text="{DynamicResource ui307}" Style="{StaticResource Hint}"/><CheckBox x:Name="PlateEnabledCheck" Content="{DynamicResource ui258}" Checked="PlateAppearance_Changed" Unchecked="PlateAppearance_Changed" Margin="0,16,0,8" />
+        <StackPanel x:Name="PlateOptions">
+          <TextBlock Text="{DynamicResource ui259}" Style="{StaticResource Label}" />
+          <WrapPanel Margin="0,4,0,8">
+            <Button Tag="#101820" Click="PlateColor_Click" ToolTip="{DynamicResource ui260}" AutomationProperties.Name="{DynamicResource ui260}" Background="#101820" Width="40" Height="32" Padding="0" Margin="0,0,8,0" />
+            <Button Tag="#000000" Click="PlateColor_Click" ToolTip="{DynamicResource ui261}" AutomationProperties.Name="{DynamicResource ui261}" Background="Black" Width="40" Height="32" Padding="0" Margin="0,0,8,0" />
+            <Button Tag="#172B46" Click="PlateColor_Click" ToolTip="{DynamicResource ui262}" AutomationProperties.Name="{DynamicResource ui262}" Background="#172B46" Width="40" Height="32" Padding="0" Margin="0,0,8,0" />
+            <Button Tag="#F0EADD" Click="PlateColor_Click" ToolTip="{DynamicResource ui263}" AutomationProperties.Name="{DynamicResource ui263}" Background="#F0EADD" Width="40" Height="32" Padding="0" Margin="0,0,8,0" />
+          </WrapPanel>
+          <TextBox x:Name="PlateColorBox" MaxLength="7" TextChanged="PlateColor_Changed" AutomationProperties.Name="{DynamicResource ui264}" ToolTip="{DynamicResource ui264}" />
+          <TextBlock x:Name="PlateColorError" Text="{DynamicResource ui268}" Foreground="#EDBC83" TextWrapping="Wrap" Visibility="Collapsed" Margin="0,6,0,0" />
+          <TextBlock Text="{DynamicResource ui069}" Style="{StaticResource Label}" />
+          <Slider x:Name="PlateTransparencySlider" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" SmallChange="1" LargeChange="10" ValueChanged="PlateTransparency_Changed" AutomationProperties.Name="{DynamicResource ui069}" />
+          <TextBlock x:Name="PlateTransparencyValue" Style="{StaticResource Hint}" />
+          <TextBlock Text="{DynamicResource ui265}" Style="{StaticResource Hint}" />
+        </StackPanel>
+        <Border Margin="0,14,0,0" Padding="18" CornerRadius="12" Background="#657C87" ClipToBounds="True">
+          <Grid><TextBlock Text="{DynamicResource ui269}" Foreground="#E7EEF5" FontSize="18" TextWrapping="Wrap" />
+          <Border x:Name="PlatePreview" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5,1" BorderThickness="0"><TextBlock x:Name="PlatePreviewText" Text="{DynamicResource ui267}" FontSize="18" TextWrapping="Wrap" /></Border></Grid>
+        </Border>
+        <TextBlock Text="{DynamicResource ui266}" Style="{StaticResource Hint}" />
+        <TextBlock Text="{DynamicResource ui068}" Style="{StaticResource Label}" /><TextBox x:Name="FontSizeBox" />
+        <TextBlock Text="{DynamicResource ui055}" FontSize="21" FontWeight="SemiBold" Margin="0,28,0,0" /><TextBlock Text="{DynamicResource ui056}" Style="{StaticResource Hint}" />
+        <CheckBox x:Name="GlassCheck" Content="{DynamicResource ui057}" Checked="Glass_Changed" Unchecked="Glass_Changed" Margin="0,22,0,4" /><TextBlock Text="{DynamicResource ui058}" Style="{StaticResource Hint}" /><CheckBox x:Name="TransparentGlassCheck" Content="{DynamicResource ui319}" Checked="Glass_Changed" Unchecked="Glass_Changed" Margin="0,16,0,0"/><TextBlock Text="{DynamicResource ui320}" Style="{StaticResource Hint}"/><TextBlock Text="{DynamicResource ui059}" Style="{StaticResource Label}" /><Slider IsEnabled="{Binding IsChecked, ElementName=TransparentGlassCheck}" x:Name="PanelTintSlider" Minimum="0" Maximum="100" Value="90" ValueChanged="GlassOpacity_Changed" /><TextBlock x:Name="PanelTintValue" Style="{StaticResource Hint}" /><TextBlock Text="{DynamicResource ui060}" Style="{StaticResource Label}" /><Slider IsEnabled="{Binding IsChecked, ElementName=TransparentGlassCheck}" x:Name="PopupTintSlider" Minimum="0" Maximum="100" Value="88" ValueChanged="GlassOpacity_Changed" /><TextBlock x:Name="PopupTintValue" Style="{StaticResource Hint}" /><TextBlock Text="{DynamicResource ui061}" Style="{StaticResource Label}" /><ComboBox x:Name="PopupDisplayCombo" SelectedValuePath="Tag"><ComboBoxItem Content="{DynamicResource ui062}" Tag="popup" /><ComboBoxItem Content="{DynamicResource ui063}" Tag="inline" /><ComboBoxItem Content="{DynamicResource ui064}" Tag="sidebar" /></ComboBox>
+        <TextBlock Text="{DynamicResource ui065}" Style="{StaticResource Label}" /><ComboBox x:Name="FullDisplayCombo" SelectedValuePath="Tag"><ComboBoxItem Content="{DynamicResource ui062}" Tag="popup" /><ComboBoxItem Content="{DynamicResource ui063}" Tag="inline" /><ComboBoxItem Content="{DynamicResource ui064}" Tag="sidebar" /></ComboBox>
+        <TextBlock Text="{DynamicResource ui066}" Style="{StaticResource Label}" /><ComboBox x:Name="WatchDisplayCombo" SelectedValuePath="Tag"><ComboBoxItem Content="{DynamicResource ui062}" Tag="popup" /><ComboBoxItem Content="{DynamicResource ui067}" Tag="inline" /><ComboBoxItem Content="{DynamicResource ui064}" Tag="sidebar" /></ComboBox>
+
+
+        <TextBlock Text="{DynamicResource ui071}" Style="{StaticResource Hint}" /><TextBlock Text="{DynamicResource ui072}" Style="{StaticResource Label}" /><Slider x:Name="OpacitySlider" Minimum="0.3" Maximum="0.95" ValueChanged="OpacitySlider_ValueChanged" /><TextBlock x:Name="OpacityValue" Style="{StaticResource Hint}" />
+      </StackPanel></ScrollViewer></TabItem>
+      <TabItem Header="{DynamicResource ui073}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="2,0,14,16">
+        <TextBlock Text="{DynamicResource ui074}" FontSize="21" FontWeight="SemiBold" /><TextBlock Text="{DynamicResource ui075}" Style="{StaticResource Hint}" />
+        <TextBlock Text="{DynamicResource ui271}" Style="{StaticResource Label}" /><input:ShortcutCaptureBox x:Name="InputKeyBox" AutomationProperties.Name="{DynamicResource ui271}" ToolTip="{DynamicResource ui249}" /><TextBlock Text="{DynamicResource ui061}" Style="{StaticResource Label}" /><input:ShortcutCaptureBox x:Name="CaptureKeyBox" AutomationProperties.Name="{DynamicResource ui061}" ToolTip="{DynamicResource ui249}" /><TextBlock Text="{DynamicResource ui065}" Style="{StaticResource Label}" /><input:ShortcutCaptureBox x:Name="FullKeyBox" AutomationProperties.Name="{DynamicResource ui065}" ToolTip="{DynamicResource ui249}" /><TextBlock Text="{DynamicResource ui076}" Style="{StaticResource Label}" /><input:ShortcutCaptureBox x:Name="WatchKeyBox" AutomationProperties.Name="{DynamicResource ui076}" ToolTip="{DynamicResource ui249}" /><TextBlock Text="{DynamicResource ui077}" Style="{StaticResource Label}" /><input:ShortcutCaptureBox x:Name="PauseKeyBox" AutomationProperties.Name="{DynamicResource ui077}" ToolTip="{DynamicResource ui249}" /><TextBlock Text="{DynamicResource ui078}" Style="{StaticResource Label}" /><input:ShortcutCaptureBox x:Name="HideKeyBox" AutomationProperties.Name="{DynamicResource ui078}" ToolTip="{DynamicResource ui249}" /><TextBlock Text="{DynamicResource ui079}" Style="{StaticResource Label}" /><input:ShortcutCaptureBox x:Name="StopKeyBox" AutomationProperties.Name="{DynamicResource ui079}" ToolTip="{DynamicResource ui249}" /><TextBlock Text="{DynamicResource ui080}" Style="{StaticResource Label}" /><input:ShortcutCaptureBox x:Name="PanelKeyBox" AutomationProperties.Name="{DynamicResource ui080}" ToolTip="{DynamicResource ui249}" /><TextBlock Text="{DynamicResource ui081}" Style="{StaticResource Hint}" />
+      </StackPanel></ScrollViewer></TabItem>
+    </TabControl>
+    <DockPanel Grid.Row="1" Margin="0,18,0,0" LastChildFill="True">
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="16,0,0,0"><Button Content="{DynamicResource ui083}" Click="Close_Click" Margin="0,0,8,0" /><Button Content="{DynamicResource ui084}" Style="{StaticResource Primary}" Click="Save_Click" /></StackPanel>
+      <TextBlock x:Name="StatusText" Text="{DynamicResource ui082}" TextWrapping="Wrap" Foreground="{StaticResource Muted}" FontSize="12" VerticalAlignment="Center" />
+    </DockPanel>
+  <TextBlock x:Name="VersionText" Visibility="Collapsed" /></Grid>
+</UserControl>

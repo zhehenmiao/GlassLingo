@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+
+    <RootNamespace>GlassLingo</RootNamespace>
+    <AssemblyName>GlassLingo</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+
+    <Version>0.17.0</Version>
+    <Product>glasslingo</Product>
+    <Company>glasslingo</Company>
+
+    <!-- WFO0003：WinForms 认为 DPI 该用 API 配。本项目是 WPF，
+         manifest 的 PerMonitorV2 才是正确做法。 -->
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Localization/Catalog/*.json" WithCulture="false"><LogicalName>GlassLingo.Localization.Catalog.%(Filename)%(Extension)</LogicalName></EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="PaddleOCRSharp" Version="6.2.0" />
+    <!-- PaddleOCRSharp excludes Build assets on its transitive runtime dependency;
+         direct reference is needed to copy its native DLLs into publish output. -->
+    <PackageReference Include="Paddle.Runtime.win_x64" Version="3.3.0.1" />
+  </ItemGroup>
+
+</Project>

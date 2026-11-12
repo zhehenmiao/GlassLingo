@@ -1,0 +1,35 @@
+<Window x:Class="GlassLingo.Overlay.InputTranslationWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Title="{DynamicResource ui271}" Style="{StaticResource {x:Type Window}}" FontFamily="{DynamicResource UiFont}" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" Background="Transparent"
+ Topmost="True" ShowInTaskbar="False" Width="480" Height="470" MinWidth="360" MinHeight="350" WindowStartupLocation="Manual">
+  <Border x:Name="Card" Padding="20,16" BorderThickness="0">
+    <Grid x:Name="ContentGrid">
+      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <Grid x:Name="HeaderGrid" MouseLeftButtonDown="Title_Drag">
+        <Grid.ColumnDefinitions><ColumnDefinition x:Name="TitleColumn" Width="*"/><ColumnDefinition x:Name="TargetColumn" Width="170"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <StackPanel x:Name="TitleStack" VerticalAlignment="Center"><TextBlock Text="{DynamicResource ui271}" FontSize="18" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/><TextBlock Text="{DynamicResource ui289}" FontSize="11" TextTrimming="CharacterEllipsis" Foreground="{StaticResource Muted}" Margin="0,4,0,0"/></StackPanel>
+        <ComboBox x:Name="TargetCombo" Grid.Column="1" SelectedValuePath="Tag" DisplayMemberPath="Name" SelectionChanged="Target_Changed" AutomationProperties.Name="{DynamicResource ui276}" ToolTip="{DynamicResource ui276}" VerticalAlignment="Center"/>
+        <Button x:Name="ModeButton" Grid.Column="3" Click="Mode_Click" ToolTip="{DynamicResource ui308}" AutomationProperties.Name="{DynamicResource ui308}" Background="Transparent" BorderThickness="0" Padding="7" Margin="2,0,0,0"><Path Data="M1,5 V1 H5 M9,1 H13 V5 M13,9 V13 H9 M5,13 H1 V9" Stroke="#D6DFEC" StrokeThickness="1.3" Width="14" Height="14"/></Button><Button Grid.Column="4" Click="Close_Click" ToolTip="{DynamicResource ui004}" Background="Transparent" BorderThickness="0" Padding="9,10" Margin="8,0,0,0" VerticalAlignment="Top"><Path Data="M0,0 L10,10 M10,0 L0,10" Stroke="#D6DFEC" StrokeThickness="1.5" Width="10" Height="10"/></Button>
+      </Grid>
+      <Grid x:Name="InputArea" Grid.Row="1" Margin="0,14,0,0">
+        <TextBox x:Name="InputBox" Height="88" FontSize="15" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MaxLength="20000" TextChanged="Input_Changed" AutomationProperties.Name="{DynamicResource ui272}"/>
+        <TextBlock x:Name="InputPlaceholder" Text="{DynamicResource ui272}" Foreground="#A6B7CC" Opacity="0.70" FontSize="14" TextWrapping="Wrap" Margin="12,10,12,0" IsHitTestVisible="False"/>
+      </Grid>
+      <Grid x:Name="ActionsRow" Grid.Row="2" Margin="0,8,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <Button Content="{DynamicResource ui275}" Click="Clear_Click" HorizontalAlignment="Left" Background="Transparent" BorderThickness="0" Padding="8,7" FontSize="12"/>
+        <Button x:Name="TranslateButton" Grid.Column="1" Content="{DynamicResource ui274}" Style="{StaticResource Primary}" Click="Translate_Click" Padding="20,8" MinWidth="88" IsEnabled="False"/>
+      </Grid>
+      <Grid x:Name="ResultsArea" Grid.Row="3" Margin="0,14,0,0"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <Grid x:Name="ResultHeader"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock x:Name="ResultLabel" Text="{DynamicResource ui002}" FontSize="12" Foreground="{StaticResource Muted}" VerticalAlignment="Center"/><Button x:Name="CopyButton" Grid.Column="1" Content="{DynamicResource ui003}" Click="Copy_Click" ToolTip="{DynamicResource ui294}" Padding="10,5" FontSize="12" IsEnabled="False"/><Button x:Name="CompactCopyButton" Grid.Column="1" Click="Copy_Click" ToolTip="{DynamicResource ui294}" AutomationProperties.Name="{DynamicResource ui003}" IsEnabled="{Binding IsEnabled,ElementName=CopyButton}" Background="Transparent" BorderThickness="0" Padding="7" Margin="0" Visibility="Collapsed" ToolTipService.ShowOnDisabled="True"><Path x:Name="CompactCopyPath" Data="M4,1 H13 V11 H4 Z M1,4 V14 H10" Stroke="#D6DFEC" StrokeThickness="1.3" Width="14" Height="14"/></Button></Grid>
+        <Border x:Name="ResultPlate" Grid.Row="1" Background="#28111823" CornerRadius="12" Padding="10" Margin="0,7,0,0"><Grid>
+          <TextBox x:Name="ResultBox" Style="{x:Null}" IsReadOnly="True" IsReadOnlyCaretVisible="False" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" BorderThickness="0" Background="Transparent" Foreground="#F2F5FA" FontFamily="{DynamicResource UiFont}" FontSize="18" Padding="0" SelectionBrush="#385C8A" AutomationProperties.Name="{DynamicResource ui002}"/>
+          <TextBlock x:Name="ResultPlaceholder" Text="{DynamicResource ui277}" Foreground="#A6B7CC" Opacity="0.70" FontSize="14" IsHitTestVisible="False" TextWrapping="Wrap"/>
+        </Grid></Border>
+      </Grid>
+      <Grid x:Name="FooterArea" Grid.Row="4" Margin="0,10,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <StackPanel><TextBlock x:Name="StatusText" Foreground="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" MaxHeight="42"/><TextBlock x:Name="KeyboardHint" Text="{DynamicResource ui273}" Foreground="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/></StackPanel>
+        <Button x:Name="SettingsButton" Grid.Column="1" Content="{DynamicResource ui281}" Click="Settings_Click" Visibility="Collapsed" Padding="9,6" FontSize="11" Margin="8,0,0,0" VerticalAlignment="Top"/>
+      </Grid>
+    </Grid>
+  </Border>
+</Window>

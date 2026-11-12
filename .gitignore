@@ -1,0 +1,38 @@
+# Local design-tool state and obsolete import metadata
+/.impeccable/
+/COMMIT.txt
+
+# Build output, local packages and runnable version folders
+**/bin/
+**/obj/
+**/publish/
+**/publish-*/
+**/release/
+/artifacts/
+.vs/
+.idea/
+*.user
+*.suo
+*.zip
+*.7z
+*.tar.gz
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+config.json
+config.*.json
+appsettings.Local.json
+secrets.json
+*.pfx
+*.p12
+*.pem
+*.key
+
+# Runtime output
+*.log
+*.log.previous
+self-test-error.txt
+Thumbs.db
+Desktop.ini
