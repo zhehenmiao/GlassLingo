@@ -35,12 +35,11 @@
 
 ## 下载和恢复
 
-从历史归档的 Assets 下载 `GlassLingo-historical-versions.zip`、`Restore-HistoricalVersion.ps1` 和 `SHA256SUMS.txt`。这个归档使用共享内容存储，需通过脚本重建版本目录，不是直接解压运行的普通程序包。
+从历史归档的 Assets 下载全部 `GlassLingo-historical-versions.zip.partNNN` 分片、`GlassLingo-historical-versions.parts.json`、`Restore-HistoricalVersion.ps1` 和 `SHA256SUMS.txt`，放在同一个目录。为避免大文件上传连接中断，归档以小分片保存；脚本会自动按顺序合并，校验每片及合并后的 SHA-256，再重建版本目录。
 
-使用 PowerShell 7，先将 `Get-FileHash` 输出与 `SHA256SUMS.txt` 比对，再列出版本或恢复：
+使用 PowerShell 7，列出版本或恢复（首次运行会自动生成合并后的 ZIP）：
 
 ```powershell
-Get-FileHash ./GlassLingo-historical-versions.zip -Algorithm SHA256
 pwsh -File ./Restore-HistoricalVersion.ps1 -Archive ./GlassLingo-historical-versions.zip -List
 pwsh -File ./Restore-HistoricalVersion.ps1 -Archive ./GlassLingo-historical-versions.zip -Version 0.16.0 -Destination ./restored-history
 ```
@@ -61,4 +60,4 @@ pwsh -File ./Restore-HistoricalVersion.ps1 -Archive ./GlassLingo-historical-vers
 
 归档中的 778 份唯一内容文件已全部通过 SHA-256 校验；实际恢复检查覆盖 0.5.0、0.16.0 和 0.6.0 源码，并确认脚本拒绝覆盖已有目录。此项检查验证归档与还原完整性，没有重新验收旧版功能。
 
-历史归档标签只标记归档说明所在的提交，不代表各旧版原始源码提交。GitHub 自动生成的 “Source code” 下载对应归档标签的仓库快照；旧程序请下载上述具名 ZIP，早期源码请通过对应集合恢复。
+历史归档标签只标记归档说明所在的提交，不代表各旧版原始源码提交。GitHub 自动生成的 “Source code” 下载对应归档标签的仓库快照；旧程序请下载上述具名分片，早期源码请通过对应集合恢复。

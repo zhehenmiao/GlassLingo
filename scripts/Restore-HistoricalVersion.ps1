@@ -9,7 +9,36 @@ param(
     [Parameter(Mandatory, ParameterSetName = 'Verify')][switch]$VerifyOnly
 )
 $ErrorActionPreference = 'Stop'
-$zip = [IO.Compression.ZipFile]::OpenRead((Resolve-Path -LiteralPath $Archive).Path)
+$archivePath = [IO.Path]::GetFullPath($Archive)
+if (-not (Test-Path -LiteralPath $archivePath -PathType Leaf)) {
+    $partsPath = [IO.Path]::ChangeExtension($archivePath, '.parts.json')
+    if (-not (Test-Path -LiteralPath $partsPath -PathType Leaf)) { throw 'Archive or its parts manifest was not found.' }
+    $parts = Get-Content -LiteralPath $partsPath -Raw | ConvertFrom-Json
+    if ($parts.format -ne 'glasslingo-archive-parts-v1' -or $parts.archiveName -ne [IO.Path]::GetFileName($archivePath) -or
+        $parts.sha256 -notmatch '^[a-f0-9]{64}$' -or $parts.length -le 0 -or $parts.parts.Count -eq 0) { throw 'Invalid parts manifest.' }
+    $temporaryPath = $archivePath + '.joining-' + [guid]::NewGuid().ToString('N')
+    try {
+        $joined = [IO.File]::Open($temporaryPath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write)
+        try {
+            for ($index = 0; $index -lt $parts.parts.Count; $index++) {
+                $part = $parts.parts[$index]
+                $expectedName = '{0}.part{1:D3}' -f $parts.archiveName, ($index + 1)
+                if ($part.name -cne $expectedName -or $part.sha256 -notmatch '^[a-f0-9]{64}$' -or $part.length -le 0) { throw 'Invalid part order or digest.' }
+                $partPath = Join-Path ([IO.Path]::GetDirectoryName($archivePath)) $expectedName
+                if (-not (Test-Path -LiteralPath $partPath -PathType Leaf)) { throw "Missing archive part: $expectedName" }
+                if ((Get-Item -LiteralPath $partPath).Length -ne $part.length -or
+                    (Get-FileHash -LiteralPath $partPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $part.sha256) { throw "Archive part checksum failed: $expectedName" }
+                $partStream = [IO.File]::OpenRead($partPath)
+                try { $partStream.CopyTo($joined) } finally { $partStream.Dispose() }
+            }
+        } finally { $joined.Dispose() }
+        if ((Get-Item -LiteralPath $temporaryPath).Length -ne $parts.length -or
+            (Get-FileHash -LiteralPath $temporaryPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $parts.sha256) { throw 'Joined archive checksum failed.' }
+        [IO.File]::Move($temporaryPath, $archivePath)
+        Write-Host 'Archive parts joined and verified.'
+    } finally { if ([IO.File]::Exists($temporaryPath)) { [IO.File]::Delete($temporaryPath) } }
+}
+$zip = [IO.Compression.ZipFile]::OpenRead($archivePath)
 try {
     $manifestEntry = $zip.GetEntry('archive-manifest.json')
     if ($null -eq $manifestEntry) { throw 'Archive manifest is missing.' }
